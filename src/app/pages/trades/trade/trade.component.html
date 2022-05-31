@@ -1,0 +1,47 @@
+<form class="trade" [formGroup]="tradeForm">
+    <div class="trade-cell"
+         *ngFor="let row of tradeData | keyvalue">
+        <input type="text"
+               [formControlName]="row.key"
+               class="trade-cell__input"
+               [attr.readonly]="!editAllowed || null">
+        <div class="trade-cell__error">
+            <div *ngIf="get(row.key).errors?.['required']"
+                 class="error-text">Value must not be empty
+            </div>
+        </div>
+        <div *ngIf="row.key === 'entryPrice' || row.key === 'exitPrice'; else dateErrors"
+             class="trade-cell__error">
+            <div *ngIf="get(row.key).errors?.['priceError']"
+                 class="error-text">{{priceErrorMessage}}
+            </div>
+        </div>
+        <ng-template #dateErrors>
+            <div class="trade-cell__error">
+                <div class="error-text"
+                     *ngIf="get(row.key).errors?.['dateFormatError']">{{dateFormatErrorMessage}}</div>
+                <div class="error-text"
+                     *ngIf="row.key === 'entryDate' &&
+                            !get(row.key).errors?.['dateFormatError'] &&
+                            !get('exitDate').errors?.['dateFormatError'] &&
+                            tradeForm.errors?.['dateDifferenceError']">{{entryDateErrorMessage}}</div>
+                <div class="error-text"
+                     *ngIf="row.key === 'exitDate' &&
+                     !get(row.key).errors?.['dateFormatError'] &&
+                     !get('entryDate').errors?.['dateFormatError'] &&
+                     tradeForm.errors?.['dateDifferenceError']">{{exitDateErrorMessage}}</div>
+            </div>
+        </ng-template>
+    </div>
+    <div class="trade-cell">
+        <span class="trade-cell__input trade-cell__profit">{{profit}}</span>
+    </div>
+    <div class="trade-cell trade-cell__buttons">
+        <button (click)="editTradeData()"
+                class="edit-button"
+                *ngIf="!editAllowed">Edit</button>
+        <button (click)="saveTradeData()"
+                class="save-button"
+                *ngIf="editAllowed">Save</button>
+    </div>
+</form>

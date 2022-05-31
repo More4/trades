@@ -1,0 +1,33 @@
+.trades {
+    margin: 0 25px;
+    padding: 15px 25px;
+    background: #1f1d21;
+
+    span {
+        color: #fff;
+    }
+
+    &-table {
+
+        &__heading {
+            display: flex;
+            margin-bottom: 20px;
+
+            &-item {
+                flex-basis: calc(100% / 6);
+                padding: 20px;
+
+                span {
+                    color: #fff;
+                }
+            }
+        }
+
+        &__row {
+
+            &:nth-child(even) {
+                background: #141316;
+            }
+        }
+    }
+}

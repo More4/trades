@@ -1,0 +1,64 @@
+.trade {
+    display: flex;
+
+    &-cell {
+        max-width: calc(100% / 6);
+        width: 100%;
+        flex-shrink: 0;
+        padding: 10px 20px;
+        box-sizing: border-box;
+
+        &__error {
+
+            .error-text {
+                color: #e50000;
+                font-size: 12px;
+                margin-top: 4px;
+            }
+        }
+
+        &__input {
+            display: block;
+            width: 100%;
+            outline: none;
+            color: #fff;
+            padding: 0;
+            font-size: 16px;
+            height: 30px;
+            background: #525252;
+            border: none;
+
+            &:read-only {
+                background: transparent;
+            }
+        }
+
+        &__profit {
+            line-height: 30px;
+            padding-left: 10px;
+            background: transparent;
+        }
+
+        &__buttons {
+            display: flex;
+            justify-content: flex-end;
+
+            button {
+                cursor: pointer;
+                color: #fff;
+                border-radius: 5px;
+                padding: 5px 15px;
+                width: 70px;
+                height: 30px;
+
+                &.edit-button {
+                    background: #8dbf42;
+                }
+
+                &.save-button {
+                    background: #0d8600;
+                }
+            }
+        }
+    }
+}

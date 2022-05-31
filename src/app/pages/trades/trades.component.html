@@ -1,0 +1,21 @@
+<div class="trades">
+    <div class="trades-table">
+        <div class="trades-table__heading">
+            <div class="trades-table__heading-item"
+                 *ngFor="let column of columns">
+                <span>{{column}}</span>
+            </div>
+        </div>
+        <div class="trades-table__row"
+             *ngFor="let trade of tradesList; index as i">
+            <app-trade [tradeData]="trade"
+                       [index]="i"
+                       (tradesDataUpdated)="updateTradesData($event)"></app-trade>
+        </div>
+    </div>
+</div>
+
+<div class="chart">
+    <app-chart [dates]="this.dateLabels"
+               [balancePoints]="this.points"></app-chart>
+</div>
