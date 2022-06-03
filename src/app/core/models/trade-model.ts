@@ -9,9 +9,12 @@
  * }
  */
 export interface Trade {
-    entryDate: string;
-    entryPrice: number;
-    exitDate: string;
-    exitPrice: number;
+    base: {
+        entryDate: string;
+        entryPrice: number;
+        exitDate: string;
+        exitPrice: number;
+    }
     index?: number;
+    created? : boolean;
 }

@@ -16,8 +16,8 @@ export class TradesService {
         for (let i = 0, endI = mergedTrades.length - 1; i < endI; i++) {
             let swapped = false;
             for (let j = 0, endJ = endI - i; j < endJ; j++) {
-                if (this.convertDates.convertDateToSeconds(mergedTrades[j].exitDate) >
-                    this.convertDates.convertDateToSeconds(mergedTrades[j + 1].exitDate)) {
+                if (this.convertDates.convertDateToSeconds(mergedTrades[j].base.exitDate) >
+                    this.convertDates.convertDateToSeconds(mergedTrades[j + 1].base.exitDate)) {
                     [mergedTrades[j], mergedTrades[j + 1]] = [mergedTrades[j + 1], mergedTrades[j]];
                     swapped = true;
                 }

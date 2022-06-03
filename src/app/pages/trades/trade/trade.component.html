@@ -1,6 +1,6 @@
 <form class="trade" [formGroup]="tradeForm">
     <div class="trade-cell"
-         *ngFor="let row of tradeData | keyvalue">
+         *ngFor="let row of tradeData.base | keyvalue">
         <input type="text"
                [formControlName]="row.key"
                class="trade-cell__input"

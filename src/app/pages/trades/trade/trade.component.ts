@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Trade } from '../../../core/models/trade-model';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { priceValidator } from '../../../core/validators/price.directive';
@@ -12,7 +12,7 @@ import { PriceService } from '../../../core/services/price.service';
     styleUrls: ['./trade.component.scss'],
 })
 
-export class TradeComponent implements OnInit {
+export class TradeComponent implements OnInit, OnChanges {
     @Input() tradeData!: Trade;
     @Input() index!: number;
     @Output('tradesDataUpdated') updateTradesData = new EventEmitter<Trade>();
@@ -42,14 +42,20 @@ export class TradeComponent implements OnInit {
 
     ngOnInit(): void {
         this.tradeForm.patchValue({
-            entryDate: this.tradeData.entryDate,
-            entryPrice: this.tradeData.entryPrice,
-            exitDate: this.tradeData.exitDate,
-            exitPrice: this.tradeData.exitPrice,
+            entryDate: this.tradeData.base.entryDate,
+            entryPrice: this.tradeData.base.entryPrice,
+            exitDate: this.tradeData.base.exitDate,
+            exitPrice: this.tradeData.base.exitPrice,
         })
         this.profit = this.priceService.updatePrice(this.tradeForm);
     }
-
+    
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes && changes['tradeData']?.currentValue.created) {
+            this.editTradeData();
+        }
+    }
+    
     get(control: string): AbstractControl | null {
         if (!control) {
             return null;
@@ -67,7 +73,7 @@ export class TradeComponent implements OnInit {
             return;
         }
         this.profit = this.priceService.updatePrice(this.tradeForm);
-        this.updatedTrade = {...this.tradeForm.getRawValue(), index: this.index};
+        this.updatedTrade = {base: {...this.tradeForm.getRawValue()}, index: this.index};
         this.updateTradesData.emit(this.updatedTrade);
         this.editAllowed = false;
     }
