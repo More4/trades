@@ -47,7 +47,7 @@ export class ChartComponent implements OnInit, OnChanges {
             datasets: [
                 {
                     data: this.balancePoints,
-                    label: 'PROFIT',
+                    label: 'BALANCE',
                     backgroundColor: 'rgba(0,97,255,0.51)',
                     borderColor: 'rgb(173,175,255)',
                     pointBackgroundColor: 'rgb(26,147,0)',

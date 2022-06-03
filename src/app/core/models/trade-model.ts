@@ -13,4 +13,5 @@ export interface Trade {
     entryPrice: number;
     exitDate: string;
     exitPrice: number;
+    index?: number;
 }

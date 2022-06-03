@@ -20,6 +20,17 @@
                 span {
                     color: #fff;
                 }
+
+                .heading-button {
+                    display: block;
+                    cursor: pointer;
+                    color: #fff;
+                    border-radius: 5px;
+                    padding: 5px 15px;
+                    height: 30px;
+                    background: #8dbf42;
+                    margin-left: auto;
+                }
             }
         }
 
@@ -30,4 +41,9 @@
             }
         }
     }
+}
+
+.chart {
+    width: 95%;
+    margin: auto;
 }

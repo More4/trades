@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Trade } from '../../core/models/trade-model';
-import { UpdatedTrade } from './trade/trade.component';
+import {TradesService} from "../../core/services/trades.service";
 
 @Component({
     selector: 'app-trades',
@@ -61,17 +61,20 @@ export class TradesComponent implements OnInit {
 
     private startBalance = 1000;
 
-    constructor() {}
+    constructor(
+        private tradesService: TradesService,
+    ) {}
 
     ngOnInit(): void {
         this.updateTradesData();
     }
 
-    updateTradesData(trade?: UpdatedTrade): void {
+    updateTradesData(trade?: Trade): void {
         let currentBalance = this.startBalance;
-        if (trade) {
+        if (trade && trade.index) {
             this.tradesList[trade.index] = {...trade};
-            this.tradesList.forEach((item: any) => delete item.index);
+            this.tradesList.forEach((item: Trade) => {delete item.index});
+            this.tradesList = this.tradesService.updateTrades(this.tradesList);
             this.points = [];
             for (let item of this.tradesList) {
                 const dailyBalanceResult = currentBalance + (item.exitPrice - item.entryPrice);
@@ -87,5 +90,9 @@ export class TradesComponent implements OnInit {
                 this.dateLabels.push(item.exitDate);
             }
         }
+    }
+
+    addNewEntry() {
+
     }
 }

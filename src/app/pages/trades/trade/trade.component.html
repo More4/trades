@@ -6,30 +6,30 @@
                class="trade-cell__input"
                [attr.readonly]="!editAllowed || null">
         <div class="trade-cell__error">
-            <div *ngIf="get(row.key).errors?.['required']"
+            <div *ngIf="get(row.key).hasError('required')"
                  class="error-text">Value must not be empty
             </div>
         </div>
         <div *ngIf="row.key === 'entryPrice' || row.key === 'exitPrice'; else dateErrors"
              class="trade-cell__error">
-            <div *ngIf="get(row.key).errors?.['priceError']"
+            <div *ngIf="get(row.key).hasError('priceError')"
                  class="error-text">{{priceErrorMessage}}
             </div>
         </div>
         <ng-template #dateErrors>
             <div class="trade-cell__error">
                 <div class="error-text"
-                     *ngIf="get(row.key).errors?.['dateFormatError']">{{dateFormatErrorMessage}}</div>
+                     *ngIf="get(row.key).hasError('dateFormatError')">{{dateFormatErrorMessage}}</div>
                 <div class="error-text"
                      *ngIf="row.key === 'entryDate' &&
-                            !get(row.key).errors?.['dateFormatError'] &&
-                            !get('exitDate').errors?.['dateFormatError'] &&
-                            tradeForm.errors?.['dateDifferenceError']">{{entryDateErrorMessage}}</div>
+                            !get(row.key).hasError('dateFormatError') &&
+                            !get('exitDate').hasError('dateFormatError') &&
+                            tradeForm.hasError('dateDifferenceError')">{{entryDateErrorMessage}}</div>
                 <div class="error-text"
                      *ngIf="row.key === 'exitDate' &&
-                     !get(row.key).errors?.['dateFormatError'] &&
-                     !get('entryDate').errors?.['dateFormatError'] &&
-                     tradeForm.errors?.['dateDifferenceError']">{{exitDateErrorMessage}}</div>
+                     !get(row.key).hasError('dateFormatError') &&
+                     !get('entryDate').hasError('dateFormatError') &&
+                     tradeForm.hasError('dateDifferenceError')">{{exitDateErrorMessage}}</div>
             </div>
         </ng-template>
     </div>

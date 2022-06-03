@@ -5,6 +5,9 @@
                  *ngFor="let column of columns">
                 <span>{{column}}</span>
             </div>
+            <div class="trades-table__heading-item">
+                <button class="heading-button" (click)="addNewEntry()">Add new entry</button>
+            </div>
         </div>
         <div class="trades-table__row"
              *ngFor="let trade of tradesList; index as i">

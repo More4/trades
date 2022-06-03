@@ -6,10 +6,6 @@ import { dateFormatValidator } from '../../../core/validators/date-format.direct
 import { dateDifferenceValidator } from '../../../core/validators/date-difference.directive';
 import { PriceService } from '../../../core/services/price.service';
 
-export interface UpdatedTrade extends Trade {
-    index: number;
-}
-
 @Component({
     selector: 'app-trade',
     templateUrl: './trade.component.html',
@@ -19,7 +15,7 @@ export interface UpdatedTrade extends Trade {
 export class TradeComponent implements OnInit {
     @Input() tradeData!: Trade;
     @Input() index!: number;
-    @Output('tradesDataUpdated') updateTradesData = new EventEmitter<any>();
+    @Output('tradesDataUpdated') updateTradesData = new EventEmitter<Trade>();
 
     tradeForm = this.fb.group({
         entryDate: ['', [Validators.required, dateFormatValidator()]],
@@ -37,7 +33,7 @@ export class TradeComponent implements OnInit {
     entryDateErrorMessage: string = 'entry date must be less than exit date';
     exitDateErrorMessage: string = 'exit date must be greater than entry date';
 
-    updatedTrade!: UpdatedTrade;
+    updatedTrade!: Trade;
 
     constructor(
         private fb: FormBuilder,
