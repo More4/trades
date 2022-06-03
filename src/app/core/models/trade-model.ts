@@ -15,6 +15,5 @@ export interface Trade {
         exitDate: string;
         exitPrice: number;
     }
-    index?: number;
     created? : boolean;
 }

@@ -67,11 +67,17 @@ export class ChartComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
+        let rerender = false;
         if (changes['balancePoints'] && changes['balancePoints'].previousValue) {
             this.lineChartData.datasets[0].data = changes['balancePoints'].currentValue;
-        } else if (changes['dates'] && changes['dates'].previousValue) {
-            this.lineChartData.labels = changes['dates'].currentValue;
+            rerender = true;
         }
-        this.chart?.render();
+        if (changes['dates'] && changes['dates'].previousValue) {
+            this.lineChartData.labels = changes['dates'].currentValue;
+            rerender = true;
+        }
+        if (rerender) {
+            this.chart?.render();
+        }
     }
 }

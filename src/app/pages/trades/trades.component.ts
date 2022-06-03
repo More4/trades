@@ -78,32 +78,33 @@ export class TradesComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.updateTradesData();
+        this.initTradesData();
+    }
+    
+    initTradesData(): void {
+        let currentBalance = this.startBalance;
+        this.updateChartSettings(currentBalance);
     }
 
-    updateTradesData(trade?: Trade): void {
+    updateTradesData(trade: Trade, index: number): void {
         let currentBalance = this.startBalance;
-        if (trade && trade.index) {
-            this.tradesList[trade.index] = {...trade};
-            this.tradesList = this.tradesService.updateTrades(this.tradesList);
-            this.points = [];
-            for (let item of this.tradesList) {
-                const dailyBalanceResult = currentBalance + (item.base.exitPrice - item.base.entryPrice);
-                currentBalance = dailyBalanceResult;
-                this.points.push(dailyBalanceResult);
-            }
-            this.dateLabels[trade.index] = trade.base.exitDate;
-        } else {
-            for (let item of this.tradesList) {
-                const dailyBalanceResult = currentBalance + (item.base.exitPrice - item.base.entryPrice);
-                currentBalance = dailyBalanceResult;
-                this.points.push(dailyBalanceResult);
-                this.dateLabels.push(item.base.exitDate);
-            }
+        this.points = [];
+        this.dateLabels = [];
+        this.tradesList[index] = {...trade};
+        this.tradesList = this.tradesService.updateTrades(this.tradesList);
+        this.updateChartSettings(currentBalance);
+    }
+    
+    updateChartSettings(currentBalance: number): void {
+        for (let item of this.tradesList) {
+            const dailyBalanceResult = currentBalance + (item.base.exitPrice - item.base.entryPrice);
+            currentBalance = dailyBalanceResult;
+            this.points.push(dailyBalanceResult);
+            this.dateLabels.push(item.base.exitDate);
         }
     }
 
-    addNewEntry() {
+    addNewEntry(): void {
         this.tradesList.push({
             base: {
                 entryDate: '',

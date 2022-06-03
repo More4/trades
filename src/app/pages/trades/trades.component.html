@@ -13,7 +13,7 @@
              *ngFor="let trade of tradesList; index as i">
             <app-trade [tradeData]="trade"
                        [index]="i"
-                       (tradesDataUpdated)="updateTradesData($event)"></app-trade>
+                       (tradesDataUpdated)="updateTradesData($event, i)"></app-trade>
         </div>
     </div>
 </div>

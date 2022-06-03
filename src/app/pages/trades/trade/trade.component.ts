@@ -73,7 +73,7 @@ export class TradeComponent implements OnInit, OnChanges {
             return;
         }
         this.profit = this.priceService.updatePrice(this.tradeForm);
-        this.updatedTrade = {base: {...this.tradeForm.getRawValue()}, index: this.index};
+        this.updatedTrade = {base: {...this.tradeForm.getRawValue()}};
         this.updateTradesData.emit(this.updatedTrade);
         this.editAllowed = false;
     }
