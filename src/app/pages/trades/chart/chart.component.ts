@@ -66,7 +66,7 @@ export class ChartComponent implements OnInit, OnChanges {
         }
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges): void {
         let rerender = false;
         if (changes['balancePoints'] && changes['balancePoints'].previousValue) {
             this.lineChartData.datasets[0].data = changes['balancePoints'].currentValue;

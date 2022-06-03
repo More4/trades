@@ -1,29 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Trade } from '../models/trade-model';
-import { DateConvertService } from './date-convert.service';
+import { SortedTrade } from '../models/sorted-trade-model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class TradesService {
 
-    constructor(
-        private convertDates: DateConvertService,
-    ) {}
-
-    updateTrades(tradesList: Trade[], newTrades?: Trade[]): Trade[] {
-        const mergedTrades = newTrades ? tradesList.concat(newTrades) : tradesList;
-        for (let i = 0, endI = mergedTrades.length - 1; i < endI; i++) {
-            let swapped = false;
-            for (let j = 0, endJ = endI - i; j < endJ; j++) {
-                if (this.convertDates.convertDateToSeconds(mergedTrades[j].base.exitDate) >
-                    this.convertDates.convertDateToSeconds(mergedTrades[j + 1].base.exitDate)) {
-                    [mergedTrades[j], mergedTrades[j + 1]] = [mergedTrades[j + 1], mergedTrades[j]];
-                    swapped = true;
-                }
-            }
-            if (!swapped) break;
+    constructor() {}
+    
+    sortTrades(tradesList: Trade[]): SortedTrade[] {
+        let mergedTrades: SortedTrade[] = [];
+        for (const trade of tradesList) {
+            mergedTrades.push({
+                date: trade.base.entryDate,
+                price: trade.base.entryPrice,
+                type: 'entry',
+            });
+            mergedTrades.push({
+                date: trade.base.exitDate,
+                price: trade.base.exitPrice,
+                type: 'exit',
+            });
         }
-        return mergedTrades;
+        return mergedTrades.sort((a, b) => a.date.valueOf() - b.date.valueOf());
     }
 }

@@ -10,9 +10,9 @@
  */
 export interface Trade {
     base: {
-        entryDate: string;
+        entryDate: Date;
         entryPrice: number;
-        exitDate: string;
+        exitDate: Date;
         exitPrice: number;
     }
     created? : boolean;

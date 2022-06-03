@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TradesComponent } from './pages/trades/trades.component';
 import { TradeComponent } from './pages/trades/trade/trade.component';
 import { ChartComponent } from './pages/trades/chart/chart.component';
@@ -27,7 +27,7 @@ import { RouterModule } from '@angular/router';
         FormsModule,
         NgChartsModule,
     ],
-    providers: [],
+    providers: [DatePipe],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
